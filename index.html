@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexa's Fashion — New York</title>
     <meta name="description" content="Moda sofisticada para mujeres reales. New York, con alma latina. Compra 2 y lleva 1 gratis.">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
@@ -136,6 +138,16 @@
             position: relative;
             z-index: 2;
             max-width: 720px;
+        }
+
+        .hero-logo {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeScale 1s 0.2s ease both;
+            filter: drop-shadow(0 2px 8px rgba(33, 32, 27, 0.08));
         }
 
         .hero-eyebrow {
@@ -1001,6 +1013,7 @@
     <!-- ═══ HERO ═══ -->
     <section class="hero">
         <div class="hero-content">
+            <img src="logo.png" alt="Alexa's Fashion Logo" class="hero-logo">
             <p class="hero-eyebrow">New York &nbsp;·&nbsp; Moda Femenina</p>
             <h1 class="hero-brand">
                 Alexa's

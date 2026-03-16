@@ -1367,24 +1367,15 @@
                 </a>`;
         }
 
-        let previousCount = 0;
-
-        function renderProducts() {
+        function renderInitial() {
             const grid = document.getElementById('product-grid');
             const spinner = document.getElementById('loading-spinner');
             const btn = document.getElementById('show-more-btn');
 
             if (!grid) return;
 
-            const visible = products.slice(0, visibleCount);
-            // Only new cards get staggered delay (relative to batch start)
-            grid.innerHTML = visible.map((p, i) => {
-                const delayIndex = i >= previousCount ? (i - previousCount) : 0;
-                const needsAnim = i >= previousCount;
-                return renderCard(p, needsAnim ? delayIndex : 0);
-            }).join('');
-
-            previousCount = visible.length;
+            const initial = products.slice(0, visibleCount);
+            grid.innerHTML = initial.map((p, i) => renderCard(p, i)).join('');
 
             if (spinner) spinner.classList.remove('active');
 
@@ -1394,18 +1385,30 @@
         }
 
         function loadMore() {
+            const grid = document.getElementById('product-grid');
+            const btn = document.getElementById('show-more-btn');
+            if (!grid) return;
+
+            const startIndex = visibleCount;
             visibleCount += PAGE_SIZE;
-            renderProducts();
-            // Scroll smoothly to the first new card
-            setTimeout(() => {
-                const cards = document.querySelectorAll('.product-card');
-                if (cards[previousCount - PAGE_SIZE]) {
-                    cards[previousCount - PAGE_SIZE].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            }, 100);
+            const newItems = products.slice(startIndex, visibleCount);
+
+            // Append new cards without touching existing ones
+            const fragment = document.createDocumentFragment();
+            newItems.forEach((p, i) => {
+                const temp = document.createElement('div');
+                temp.innerHTML = renderCard(p, i);
+                fragment.appendChild(temp.firstElementChild);
+            });
+            grid.appendChild(fragment);
+
+            // Hide button if no more products
+            if (btn) {
+                btn.style.display = visibleCount < products.length ? 'block' : 'none';
+            }
         }
 
-        renderProducts();
+        renderInitial();
 
         // ══════ SCROLL REVEAL ══════
         // Use requestAnimationFrame to ensure DOM is painted before observing

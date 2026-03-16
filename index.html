@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexa's Fashion — New York</title>
+    <meta name="description" content="Moda sofisticada para mujeres reales. New York, con alma latina. Compra 2 y lleva 1 gratis.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ivory: #FAEDCD;
+            --champagne: #E7C8A0;
+            --buff: #D4A373;
+            --carbon: #21201B;
+            --espresso: #B19071;
+            --tan: #BBA993;
+            --burgundy: #741102;
+            --olive: #25330F;
+            --copper: #B27F4C;
+            --cream: #FDF8F0;
+            --warm-white: #FEFCF8;
+            --blush: #F5E6D8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background: var(--warm-white);
+            color: var(--carbon);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ══════════════════════════════════════
+           PROMO BAR
+        ══════════════════════════════════════ */
+        .promo-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--carbon);
+            color: var(--champagne);
+            text-align: center;
+            padding: 10px 20px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-weight: 400;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(177, 144, 113, 0.15);
+        }
+
+        .promo-bar span {
+            display: inline-block;
+            animation: fadeSlideDown 1s ease both;
+        }
+
+        .promo-bar .promo-separator {
+            display: inline-block;
+            width: 30px;
+            height: 1px;
+            background: var(--copper);
+            vertical-align: middle;
+            margin: 0 15px;
+            opacity: 0.5;
+        }
+
+        /* ══════════════════════════════════════
+           HERO
+        ══════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 30px 60px;
+            position: relative;
+            background: var(--warm-white);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -20%;
+            width: 70vw;
+            height: 70vw;
+            max-width: 800px;
+            max-height: 800px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, rgba(231, 200, 160, 0.25) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -15%;
+            width: 50vw;
+            height: 50vw;
+            max-width: 600px;
+            max-height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse at center, rgba(212, 163, 115, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--espresso);
+            margin-bottom: 30px;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeSlideUp 1s 0.3s ease both;
+        }
+
+        .hero-brand {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(3rem, 10vw, 7.5rem);
+            font-weight: 400;
+            line-height: 0.95;
+            color: var(--carbon);
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            animation: fadeScale 1.2s 0.5s ease both;
+        }
+
+        .hero-brand em {
+            font-style: italic;
+            font-weight: 400;
+            display: block;
+            font-size: 0.45em;
+            letter-spacing: 0.15em;
+            color: var(--espresso);
+            margin-top: 5px;
+        }
+
+        .hero-line {
+            width: 50px;
+            height: 1px;
+            background: var(--copper);
+            margin: 35px auto;
+            opacity: 0;
+            animation: expandWidth 1s 1s ease both;
+        }
+
+        .hero-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--espresso);
+            letter-spacing: 0.03em;
+            line-height: 1.6;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeSlideUp 1s 1.2s ease both;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 42px;
+            background: var(--carbon);
+            color: var(--champagne);
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.25, 0, 0, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeSlideUp 1s 1.5s ease both;
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--burgundy);
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.25, 0, 0, 1);
+        }
+
+        .hero-cta:hover::before {
+            transform: translateY(0);
+        }
+
+        .hero-cta span,
+        .hero-cta svg {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-cta:hover {
+            color: var(--ivory);
+        }
+
+        .hero-cta svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.4s ease;
+        }
+
+        .hero-cta:hover svg {
+            transform: translateX(3px);
+        }
+
+        .hero-scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeSlideUp 1s 2s ease both;
+        }
+
+        .hero-scroll-hint span {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--tan);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--copper), transparent);
+            animation: scrollPulse 2s infinite;
+        }
+
+        /* ══════════════════════════════════════
+           PROMO SECTION
+        ══════════════════════════════════════ */
+        .promo {
+            padding: 100px 30px;
+            background: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--champagne), transparent);
+        }
+
+        .promo-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .promo-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--burgundy);
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .promo-headline {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 400;
+            line-height: 1;
+            color: var(--carbon);
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .promo-headline em {
+            font-style: italic;
+            color: var(--burgundy);
+        }
+
+        .promo-subtext {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            font-weight: 300;
+            color: var(--espresso);
+            line-height: 1.7;
+            margin: 30px auto 0;
+            max-width: 480px;
+        }
+
+        .promo-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 45px auto;
+        }
+
+        .promo-divider span {
+            width: 60px;
+            height: 1px;
+            background: var(--champagne);
+        }
+
+        .promo-divider .diamond {
+            width: 6px;
+            height: 6px;
+            background: var(--copper);
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+
+        .promo-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 50px auto;
+            max-width: 600px;
+        }
+
+        .promo-step {
+            text-align: center;
+        }
+
+        .promo-step-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--copper);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .promo-step-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            color: var(--espresso);
+            letter-spacing: 0.05em;
+            line-height: 1.5;
+        }
+
+        .promo-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px 48px;
+            background: var(--burgundy);
+            color: var(--ivory);
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: all 0.5s cubic-bezier(0.25, 0, 0, 1);
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .promo-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--carbon);
+            transform: translateX(-100%);
+            transition: transform 0.5s cubic-bezier(0.25, 0, 0, 1);
+        }
+
+        .promo-cta:hover::before {
+            transform: translateX(0);
+        }
+
+        .promo-cta span,
+        .promo-cta svg {
+            position: relative;
+            z-index: 1;
+        }
+
+        .promo-cta svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.4s ease;
+        }
+
+        .promo-cta:hover svg {
+            transform: scale(1.1);
+        }
+
+        /* ══════════════════════════════════════
+           BRAND ESSENCE
+        ══════════════════════════════════════ */
+        .essence {
+            padding: 90px 30px;
+            background: var(--carbon);
+            color: var(--champagne);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .essence::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(116, 17, 2, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(178, 127, 76, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .essence-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .essence-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.35;
+            color: var(--ivory);
+            letter-spacing: 0.01em;
+        }
+
+        .essence-quote::before {
+            content: '\201C';
+            display: block;
+            font-size: 4rem;
+            color: var(--copper);
+            line-height: 1;
+            margin-bottom: 10px;
+            font-style: normal;
+        }
+
+        .essence-author {
+            margin-top: 30px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--espresso);
+        }
+
+        /* ══════════════════════════════════════
+           CATALOGUE (inside promo)
+        ══════════════════════════════════════ */
+        .catalogue-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 30px;
+            text-align: center;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+            margin: 0 auto 50px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid rgba(231, 200, 160, 0.4);
+            text-align: left;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .product-card:hover {
+            border-color: var(--champagne);
+            box-shadow: 0 8px 30px rgba(33, 32, 27, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .product-card-img {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 0, 0, 1);
+        }
+
+        .product-card:hover .product-card-img {
+            transform: scale(1.03);
+        }
+
+        .product-card-img-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-card-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--burgundy);
+            color: var(--ivory);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            font-weight: 500;
+        }
+
+        .product-card-info {
+            padding: 18px 20px 22px;
+        }
+
+        .product-card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--carbon);
+            margin-bottom: 6px;
+            letter-spacing: 0.01em;
+        }
+
+        .product-card-sizes {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            color: var(--tan);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .product-card-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--burgundy);
+        }
+
+        .product-card-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: var(--carbon);
+            color: var(--champagne);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: background 0.4s ease;
+        }
+
+        .product-card:hover .product-card-cta {
+            background: var(--burgundy);
+        }
+
+        .product-card-cta svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .catalogue-bottom-cta {
+            margin-top: 10px;
+        }
+
+        .catalogue-bottom-cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--burgundy);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--burgundy);
+            transition: all 0.4s ease;
+        }
+
+        .catalogue-bottom-cta a:hover {
+            color: var(--carbon);
+            border-color: var(--carbon);
+        }
+
+        .catalogue-bottom-cta a svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .catalogue-bottom-cta a:hover svg {
+            transform: translateX(4px);
+        }
+
+        .loading-spinner {
+            display: none;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .loading-spinner.active {
+            display: block;
+        }
+
+        .loading-spinner p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            color: var(--espresso);
+            font-style: italic;
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--champagne);
+            border-top-color: var(--burgundy);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ══════════════════════════════════════
+           FOOTER
+        ══════════════════════════════════════ */
+        .footer {
+            padding: 60px 30px 40px;
+            background: var(--carbon);
+            color: var(--tan);
+            text-align: center;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 1px;
+            background: var(--copper);
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--ivory);
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+
+        .footer-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--espresso);
+            margin-bottom: 35px;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            margin-bottom: 40px;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--champagne);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--ivory);
+        }
+
+        .footer-link svg {
+            width: 18px;
+            height: 18px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover svg {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid rgba(177, 144, 113, 0.1);
+        }
+
+        .footer-copy {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.75rem;
+            color: rgba(177, 144, 113, 0.5);
+            letter-spacing: 0.15em;
+        }
+
+        /* ══════════════════════════════════════
+           ANIMATIONS
+        ══════════════════════════════════════ */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeScale {
+            from {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes expandWidth {
+            from {
+                opacity: 0;
+                width: 0;
+            }
+            to {
+                opacity: 1;
+                width: 50px;
+            }
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scaleY(0.6);
+                transform-origin: top;
+            }
+            50% {
+                opacity: 0.8;
+                transform: scaleY(1);
+            }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ══════════════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .promo-bar {
+                font-size: 0.7rem;
+                padding: 9px 15px;
+                letter-spacing: 0.15em;
+            }
+
+            .promo-bar .promo-separator {
+                width: 15px;
+                margin: 0 8px;
+            }
+
+            .hero {
+                padding: 70px 24px 50px;
+            }
+
+            .promo {
+                padding: 70px 24px;
+            }
+
+            .promo-details {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                max-width: 250px;
+            }
+
+            .promo-step {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                text-align: left;
+            }
+
+            .promo-step-num {
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+
+            .essence {
+                padding: 70px 24px;
+            }
+
+            .catalogue {
+                padding: 70px 15px;
+            }
+
+            .catalogue-frame iframe {
+                height: 500px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .hero-scroll-hint {
+                bottom: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .promo-bar .promo-separator {
+                display: none;
+            }
+
+            .hero-cta {
+                padding: 15px 35px;
+                font-size: 0.78rem;
+            }
+
+            .promo-cta {
+                padding: 16px 35px;
+                font-size: 0.78rem;
+            }
+
+            .catalogue-frame iframe {
+                height: 420px;
+            }
+        }
+
+        /* Noise texture overlay for sophistication */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.018;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══ PROMO BAR ═══ -->
+    <div class="promo-bar">
+        <span>Compra 2 <span class="promo-separator"></span> Lleva 1 Gratis</span>
+    </div>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">New York &nbsp;·&nbsp; Moda Femenina</p>
+            <h1 class="hero-brand">
+                Alexa's
+                Fashion
+                <em>N e w &nbsp; Y o r k</em>
+            </h1>
+            <div class="hero-line"></div>
+            <p class="hero-tagline">La elegancia no grita. Se nota.</p>
+            <a href="https://wa.me/c/17188126700" target="_blank" rel="noopener" class="hero-cta">
+                <span>Explorar Catálogo</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+        <div class="hero-scroll-hint">
+            <span>Descubre</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ═══ PROMO + CATALOGUE (COMBINED) ═══ -->
+    <section class="promo" id="catalogo">
+        <div class="promo-inner">
+            <p class="promo-label reveal">Promoción Especial</p>
+            <h2 class="promo-headline reveal reveal-delay-1">
+                Lleva 3, <em>paga 2</em>
+            </h2>
+            <p class="promo-subtext reveal reveal-delay-2">
+                Elige tus piezas favoritas.<br>
+                La tercera va por nuestra cuenta.
+            </p>
+            <div class="promo-divider reveal reveal-delay-2">
+                <span></span>
+                <div class="diamond"></div>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="catalogue-inner">
+            <div class="loading-spinner active" id="loading-spinner">
+                <div class="spinner"></div>
+                <p>Cargando catálogo...</p>
+            </div>
+
+            <div class="product-grid reveal reveal-delay-3" id="product-grid">
+                <!-- Products injected by JS -->
+            </div>
+
+            <div class="catalogue-bottom-cta reveal reveal-delay-4">
+                <a href="https://wa.me/c/17188126700" target="_blank" rel="noopener">
+                    <span>Ver catálogo completo en WhatsApp</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ BRAND ESSENCE ═══ -->
+    <section class="essence">
+        <div class="essence-inner reveal">
+            <blockquote class="essence-quote">
+                Cuando una mujer se siente bien con lo que lleva, todo en su vida se eleva.
+            </blockquote>
+            <p class="essence-author">— Alexa's Fashion</p>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+        <p class="footer-brand">Alexa's Fashion</p>
+        <p class="footer-tagline">New York, con alma latina.</p>
+        <div class="footer-links">
+            <a href="https://www.instagram.com/alexasfashionnewyork" target="_blank" rel="noopener" class="footer-link">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                    <circle cx="12" cy="12" r="5"/>
+                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+                <span>Instagram</span>
+            </a>
+            <a href="https://wa.me/c/17188126700" target="_blank" rel="noopener" class="footer-link">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                <span>Catálogo</span>
+            </a>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copy">&copy; 2025 Alexa's Fashion. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ══════ PRODUCT DATA ══════
+        // Add more products here — just paste new wa.me/p/ links into the productLinks array
+        // and run the scraper, or add objects manually
+        const products = [
+            {
+                name: "Blusa Rosada",
+                sizes: "S · M · L",
+                price: "$31.00",
+                image: "https://scontent.xx.fbcdn.net/v/t45.5328-9/451166416_866678088652012_6807286269128996396_n.jpg?stp=c0.150.600.600a_dst-jpg_p2048x2048_tt6&_nc_cat=103&ccb=1-7&_nc_sid=657aed&_nc_ohc=4BlTPXE3qiQQ7kNvwGlnWe8&_nc_oc=AdlS8oFOBnCwTxDVrtl6nJUyjDW4cbelP4t8v1DjSKu_bpMeTfNJ-kK6KvCswUQPPX0&_nc_zt=23&_nc_ht=scontent.xx&_nc_gid=9TbZr-X17d0MpF_889rOdQ&_nc_ss=8&oh=00_Afx1ZRyXQSvyFn9BB-GEd7nASdrR1-gMG9z2reWnlwJtBw&oe=69BD040D",
+                link: "https://wa.me/p/8006659279368713/17188126700"
+            }
+        ];
+
+        // ══════ RENDER PRODUCTS ══════
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const spinner = document.getElementById('loading-spinner');
+
+            if (!grid) return;
+
+            const whatsappSvg = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>';
+
+            grid.innerHTML = products.map((p, i) => `
+                <a href="${p.link}" target="_blank" rel="noopener" class="product-card" style="animation-delay: ${i * 0.1}s">
+                    <div class="product-card-img-wrap">
+                        <img class="product-card-img" src="${p.image}" alt="${p.name}" loading="lazy">
+                        <div class="product-card-badge">Lleva 3 paga 2</div>
+                    </div>
+                    <div class="product-card-info">
+                        <h3 class="product-card-name">${p.name}</h3>
+                        <p class="product-card-sizes">${p.sizes}</p>
+                        <p class="product-card-price">${p.price}</p>
+                    </div>
+                    <div class="product-card-cta">
+                        ${whatsappSvg}
+                        <span>Ver en WhatsApp</span>
+                    </div>
+                </a>
+            `).join('');
+
+            if (spinner) spinner.classList.remove('active');
+        }
+
+        renderProducts();
+
+        // ══════ SCROLL REVEAL ══════
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
